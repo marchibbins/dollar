@@ -1,6 +1,28 @@
-#dollar {
-    background-image: url(../images/Dollar_Assets_V01_00000.png);
+
+#dollar { background-image: url(../images/Dollar_Assets_V01_00000.png); }
+#one    { background-image: url(../images/Dollar_Assets_V01_00001.png); }
+#two    { background-image: url(../images/Dollar_Assets_V01_00002.png); }
+#three  { background-image: url(../images/Dollar_Assets_V01_00003.png); }
+#four   { background-image: url(../images/Dollar_Assets_V01_00004.png); }
+#five   { background-image: url(../images/Dollar_Assets_V01_00005.png); }
+#six    { background-image: url(../images/Dollar_Assets_V01_00006.png); }
+
+.container {
+    position: relative;
+}
+
+.section {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.bg-size {
     background-size: 600px 900px;
     width: 600px;
     height: 900px;
+}
+
+.hidden {
+    display: none;
 }
