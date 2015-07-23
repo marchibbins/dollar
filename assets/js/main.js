@@ -57,20 +57,21 @@ var Dollar = (function($) {
                 targetId = q(el).attr('data-target'),
                 target = q('#' + targetId);
 
+            if (!IsTouchDevice) {
+                el.on('mouseenter', function () {
+                    if (!transitioning) {
+                        target.stop().fadeIn();
+                    }
+                })
 
-            el.on('mouseenter', function () {
-                if (!transitioning) {
-                    target.stop().fadeIn();
-                }
-            })
+                .on('mouseleave', function () {
+                    if (!transitioning) {
+                        target.stop().fadeOut();
+                    }
+                })
+            };
 
-            .on('mouseleave', function () {
-                if (!transitioning) {
-                    target.stop().fadeOut();
-                }
-            })
-
-            .on('click', function (event) {
+            el.on('click', function (event) {
                 event.preventDefault();
                 if (!transitioning) {
                     selectSection(el, target);
@@ -126,6 +127,10 @@ var Dollar = (function($) {
 
 })(jQuery);
 
+IsTouchDevice = 'ontouchstart' in window // Most browsers
+    || 'onmsgesturechange' in window; // IE10
+
 $(function() {
+    FastClick.attach(document.body);
     Dollar.init();
 });
