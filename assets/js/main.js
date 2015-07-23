@@ -18,11 +18,20 @@ var Dollar = (function($) {
         }
     },
     dom = {},
+
     transitioning = false,
+    fadeSpeed = 400,
+
+    glowing = true,
+    glowSpeed = 100,
+    glowWait = 5000,
+    glowCount = 0,
+    glowDuration;
 
     init = function () {
         setup();
         attach();
+        setTimeout(glow, glowWait);
     },
 
     setup = function () {
@@ -47,6 +56,31 @@ var Dollar = (function($) {
         });
     },
 
+    glow = function () {
+        if (glowing) {
+            setTimeout(function() {
+                if (!glowing) {
+                    return;
+                }
+
+                var section = dom.sections[glowCount];
+                section.fadeIn(fadeSpeed, function () {
+                    section.fadeOut(fadeSpeed);
+                });
+
+                glowCount++;
+                if (glowCount == dom.sections.length) {
+                    glowDuration = glowWait;
+                    glowCount = 0;
+                } else {
+                    glowDuration = glowSpeed;
+                }
+
+                glow();
+            }, glowDuration);
+        }
+    },
+
     q = function (selector) {
         return $(selector, dom.container);
     },
@@ -59,19 +93,21 @@ var Dollar = (function($) {
 
             if (!IsTouchDevice) {
                 el.on('mouseenter', function () {
+                    glowing = false;
                     if (!transitioning) {
-                        target.stop().fadeIn();
+                        target.stop().fadeIn(fadeSpeed);
                     }
                 })
 
                 .on('mouseleave', function () {
                     if (!transitioning) {
-                        target.stop().fadeOut();
+                        target.stop().fadeOut(fadeSpeed);
                     }
                 })
             };
 
             el.on('click', function (event) {
+                glowing = false;
                 event.preventDefault();
                 if (!transitioning) {
                     selectSection(el, target);

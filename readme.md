@@ -1,7 +1,7 @@
 ## TODO
 
 ### Tasks
-Glowing streak
+// Glowing streak
 // Size difference
 Replace debug buttons
 Text windows
