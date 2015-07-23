@@ -28,6 +28,7 @@ var Dollar = (function($) {
     setup = function () {
         dom = {
             container: $('#' + config.ids.container),
+            toggles: q('[data-target]'),
             sections: []
         };
 
@@ -51,10 +52,11 @@ var Dollar = (function($) {
     },
 
     attach = function () {
-        q('[data-target]').each(function (i, el) {
+        dom.toggles.each(function (i, el) {
             var el = q(el),
                 targetId = q(el).attr('data-target'),
                 target = q('#' + targetId);
+
 
             el.on('mouseenter', function () {
                 if (!transitioning) {
@@ -93,13 +95,15 @@ var Dollar = (function($) {
     resetToggles = function () {
         $(dom.sections).each(function (i, section) {
             if (!section.hasClass(config.classes.active)) {
-                section.stop().fadeTo(0, 0).addClass(config.classes.hidden);
+                section.stop().fadeOut(0, 0).addClass(config.classes.hidden);
             }
         });
     },
 
     resizeBackgrounds = function () {
         dom.container.addClass(config.classes.scale);
+        dom.toggles.addClass(config.classes.hidden);
+
         var animProperties = {
                 backgroundSize: '900px',
                 backgroundPositionX: -150,
@@ -111,6 +115,7 @@ var Dollar = (function($) {
         transitioning = true;
         dom.container.animate(animProperties, duration, ease);
         q('.' + config.classes.layer).animate(animProperties, duration, ease, function() {
+            dom.toggles.removeClass(config.classes.hidden);
             transitioning = false;
         });
     };
