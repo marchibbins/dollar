@@ -2,40 +2,84 @@ var Dollar = (function($) {
 
     var config = {
         ids: {
-            container: 'dollar'
+            container: 'dollar',
+            one: 'one',
+            two: 'two',
+            three: 'three',
+            four: 'four',
+            five: 'five',
+            six: 'six'
         },
         classes: {
             hidden: 'hidden'
-        },
-        dom: {}
-    };
+        }
+    },
+    dom = {},
 
-    var init = function () {
-        dom();
+    currentSection,
+
+    init = function () {
+        setup();
         attach();
     },
 
-    dom = function () {
-        config.dom = {
-            container: $('#' + config.ids.container)
+    setup = function () {
+        dom = {
+            container: $('#' + config.ids.container),
+            sections: []
         };
-    },
 
-    attach = function () {
-        q('[data-toggle]').each(function (i, el) {
-            var targetId = q(el).attr('data-toggle'),
-                target = q('#' + targetId);
-            q(this).hover(function () {
-                target.removeClass(config.classes.hidden);
-            }, function () {
-                target.addClass(config.classes.hidden);
-            });
+        var sections = [
+            config.ids.one,
+            config.ids.two,
+            config.ids.three,
+            config.ids.four,
+            config.ids.five,
+            config.ids.six,
+        ];
+
+        $(sections).each(function (i, sectionId) {
+            dom.sections.push(q('#' + sectionId));
         });
     },
 
     q = function (selector) {
         return $(selector, dom.container);
-    }
+    },
+
+    attach = function () {
+        q('[data-toggle]').each(function (i, el) {
+            var targetId = q(el).attr('data-target'),
+                target = q('#' + targetId);
+
+            q(this).hover(function () {
+                if (!currentSection) {
+                    target.removeClass(config.classes.hidden);
+                }
+            }, function () {
+                if (!currentSection) {
+                    target.addClass(config.classes.hidden);
+                }
+            })
+
+            .click(function (event) {
+                event.preventDefault();
+                selectSection(targetId);
+            });
+        });
+    },
+
+    selectSection = function (targetId) {
+        resetToggles();
+        currentSection = targetId;
+        console.debug("currentSection", currentSection);
+    },
+
+    resetToggles = function (targetId) {
+        $(dom.sections).each(function (i, section) {
+            section.addClass(config.classes.hidden);
+        });
+    };
 
     return {
         init: init
