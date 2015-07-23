@@ -11,6 +11,7 @@ var Dollar = (function($) {
             six: 'six'
         },
         classes: {
+            active: 'active',
             hidden: 'hidden'
         }
     },
@@ -53,31 +54,33 @@ var Dollar = (function($) {
                 target = q('#' + targetId);
 
             q(this).hover(function () {
-                if (!currentSection) {
+                if (targetId !== currentSection) {
                     target.removeClass(config.classes.hidden);
                 }
             }, function () {
-                if (!currentSection) {
+                if (targetId !== currentSection) {
                     target.addClass(config.classes.hidden);
                 }
             })
 
             .click(function (event) {
                 event.preventDefault();
-                selectSection(targetId);
+                selectSection(targetId, target);
             });
         });
     },
 
-    selectSection = function (targetId) {
+    selectSection = function (targetId, target) {
         resetToggles();
         currentSection = targetId;
-        console.debug("currentSection", currentSection);
+        target.addClass(config.classes.active);
+        target.removeClass(config.classes.hidden);
     },
 
     resetToggles = function (targetId) {
         $(dom.sections).each(function (i, section) {
             section.addClass(config.classes.hidden);
+            section.removeClass(config.classes.active);
         });
     };
 
