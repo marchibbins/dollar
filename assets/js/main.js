@@ -57,12 +57,8 @@ var Dollar = (function($) {
     },
 
     glow = function () {
-        if (glowing) {
-            setTimeout(function() {
-                if (!glowing) {
-                    return;
-                }
-
+        setTimeout(function() {
+            if (glowing) {
                 var section = dom.sections[glowCount];
                 section.fadeIn(fadeSpeed, function () {
                     section.fadeOut(fadeSpeed);
@@ -77,8 +73,8 @@ var Dollar = (function($) {
                 }
 
                 glow();
-            }, glowDuration);
-        }
+            }
+        }, glowDuration);
     },
 
     q = function (selector) {
