@@ -6,6 +6,7 @@
 Replace debug buttons
 Text windows
 Browser test/cut
+Crunch PNGs
 
 ### Decisions
 Preload, or spinner
