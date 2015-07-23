@@ -2,12 +2,13 @@
 
 ### Tasks
 Glowing streak
-Size difference
+// Size difference
 Replace debug buttons
 Text windows
+Browser test/cut
 
 ### Decisions
 Preload, or spinner
-iOS hover/click state
-Fade animations on hover
+// iOS hover/click state
+// Fade animations on hover
 Legacy browsers
