@@ -47,7 +47,7 @@ var Dollar = (function($) {
     },
 
     attach = function () {
-        q('[data-toggle]').each(function (i, el) {
+        q('[data-target]').each(function (i, el) {
             var el = $(el),
                 targetId = q(el).attr('data-target'),
                 target = q('#' + targetId);
