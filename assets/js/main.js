@@ -17,8 +17,6 @@ var Dollar = (function($) {
     },
     dom = {},
 
-    currentSection,
-
     init = function () {
         setup();
         attach();
@@ -50,37 +48,37 @@ var Dollar = (function($) {
 
     attach = function () {
         q('[data-toggle]').each(function (i, el) {
-            var targetId = q(el).attr('data-target'),
+            var el = $(el),
+                targetId = q(el).attr('data-target'),
                 target = q('#' + targetId);
 
-            q(this).hover(function () {
-                if (targetId !== currentSection) {
-                    target.removeClass(config.classes.hidden);
-                }
-            }, function () {
-                if (targetId !== currentSection) {
-                    target.addClass(config.classes.hidden);
-                }
+            el.on('mouseenter', function () {
+                target.removeClass(config.classes.hidden);
             })
 
-            .click(function (event) {
+            .on('mouseleave', function () {
+                target.addClass(config.classes.hidden);
+            })
+
+            .on('click', function (event) {
                 event.preventDefault();
-                selectSection(targetId, target);
+                selectSection(el, target);
             });
         });
     },
 
-    selectSection = function (targetId, target) {
+    selectSection = function (el, target) {
         resetToggles();
-        currentSection = targetId;
+        el.unbind('mouseenter mouseleave');
         target.addClass(config.classes.active);
         target.removeClass(config.classes.hidden);
     },
 
-    resetToggles = function (targetId) {
+    resetToggles = function () {
         $(dom.sections).each(function (i, section) {
-            section.addClass(config.classes.hidden);
-            section.removeClass(config.classes.active);
+            if (!section.hasClass(config.classes.active)) {
+                section.addClass(config.classes.hidden);
+            }
         });
     };
 
