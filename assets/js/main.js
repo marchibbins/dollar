@@ -38,7 +38,8 @@ var Dollar = (function($) {
         ];
 
         $(sections).each(function (i, sectionId) {
-            dom.sections.push(q('#' + sectionId));
+            var section = q('#' + sectionId);
+            dom.sections.push(section);
         });
     },
 
@@ -53,11 +54,11 @@ var Dollar = (function($) {
                 target = q('#' + targetId);
 
             el.on('mouseenter', function () {
-                target.removeClass(config.classes.hidden);
+                target.fadeIn();
             })
 
             .on('mouseleave', function () {
-                target.addClass(config.classes.hidden);
+                target.fadeOut();
             })
 
             .on('click', function (event) {
