@@ -10,3 +10,4 @@ Text windows
 Preload, or spinner
 iOS hover/click state
 Fade animations on hover
+Legacy browsers
