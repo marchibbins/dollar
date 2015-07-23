@@ -42,7 +42,7 @@ body:after {
 }
 
 .bg-size {
-    background-size: 600px 900px;
+    background-position: 50%;
     width: 600px;
     height: 900px;
 }
@@ -54,6 +54,6 @@ body:after {
 /* Debug */
 #debug {
     position: absolute;
-    top: 650px;
-    left: 10px;
+    top: 675px;
+    left: 400px;
 }
