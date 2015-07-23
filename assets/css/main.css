@@ -26,3 +26,10 @@
 .hidden {
     display: none;
 }
+
+/* Debug */
+#debug {
+    position: absolute;
+    top: 650px;
+    left: 10px;
+}
