@@ -41,10 +41,11 @@ body:after {
     left: 0;
 }
 
-.bg-size {
-    background-position: 50%;
+.layer {
     width: 600px;
     height: 900px;
+    background-size: 1200px;
+    background-position: -300px -450px;
 }
 
 .hidden {
