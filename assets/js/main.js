@@ -3,8 +3,6 @@ var HelloYesDollar = (function($) {
     var config = {
         ids: {
             interactive: 'HYD',
-            mapLarge:    'HYD__map--large',
-            mapSmall:    'HYD__map--small'
         },
         classes: {
             active:   'HYD__active',
@@ -13,6 +11,10 @@ var HelloYesDollar = (function($) {
             mapImage: 'HYD__map-image',
             scale:    'HYD__scale',
             section:  'HYD__section'
+        },
+        maps: {
+            large:    'HYD__map--large',
+            small:    'HYD__map--small'
         }
     },
     dom = {},
@@ -121,7 +123,7 @@ var HelloYesDollar = (function($) {
 
     resizeBackgrounds = function () {
         dom.interactive.addClass(config.classes.scale);
-        q('#' + config.ids.mapLarge).remove();
+        q('[name="' + config.maps.large + '"]').remove();
 
         var animProperties = {
                 backgroundSize: '900px',
@@ -133,8 +135,8 @@ var HelloYesDollar = (function($) {
 
         transitioning = true;
         q('.' + config.classes.layer).animate(animProperties, duration, ease, function() {
-            q('#' + config.ids.mapSmall).removeClass(config.classes.hidden);
-            q('.' + config.classes.mapImage).attr('usemap', '#' + config.ids.mapSmall);
+            q('[name="' + config.maps.small + '"]').removeClass(config.classes.hidden);
+            q('.' + config.classes.mapImage).attr('usemap', '#' + config.maps.small);
             transitioning = false;
         });
     };
