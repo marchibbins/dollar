@@ -63,6 +63,7 @@ body:after {
 }
 
 .HYD__map-image {
+    border: 0;
     opacity: 0;
 }
 
