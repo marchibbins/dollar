@@ -1,6 +1,6 @@
 
 /* Sections */
-#dollar       { background-image: url(../images/Dollar_Assets_V01_00000.png); }
+#zero         { background-image: url(../images/Dollar_Assets_V01_00000.png); }
 #one          { background-image: url(../images/Dollar_Assets_V01_00001.png); }
 #one.active   { background-image: url(../images/Dollar_Assets_V01_00007.png); }
 #two          { background-image: url(../images/Dollar_Assets_V01_00002.png); }

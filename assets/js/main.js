@@ -2,7 +2,8 @@ var Dollar = (function($) {
 
     var config = {
         ids: {
-            container: 'dollar',
+            interactive: 'dollar-interactive',
+            dollar: 'zero',
             one: 'one',
             two: 'two',
             three: 'three',
@@ -35,12 +36,13 @@ var Dollar = (function($) {
         setup();
         attach();
         setTimeout(glow, glowWait);
-        dom.container.removeClass(config.classes.hidden);
+        dom.interactive.removeClass(config.classes.hidden);
     },
 
     setup = function () {
         dom = {
-            container: $('#' + config.ids.container),
+            interactive: $('#' + config.ids.interactive),
+            dollar: q('#' + config.ids.dollar),
             toggles: q('[data-target]'),
             sections: []
         };
@@ -82,7 +84,7 @@ var Dollar = (function($) {
     },
 
     q = function (selector) {
-        return $(selector, dom.container);
+        return $(selector, dom.interactive);
     },
 
     attach = function () {
@@ -118,13 +120,13 @@ var Dollar = (function($) {
 
     selectSection = function (targetId, target) {
         resetToggles();
-        $('[data-target="' + targetId + '"]').unbind('mouseenter mouseleave');
+        q('[data-target="' + targetId + '"]').unbind('mouseenter mouseleave');
 
         target.stop().fadeTo(0, 100)
             .addClass(config.classes.active)
             .removeClass(config.classes.hidden);
 
-        if (!dom.container.hasClass(config.classes.scale)) {
+        if (!dom.interactive.hasClass(config.classes.scale)) {
             resizeBackgrounds();
         }
     },
@@ -138,8 +140,8 @@ var Dollar = (function($) {
     },
 
     resizeBackgrounds = function () {
-        dom.container.addClass(config.classes.scale);
-        $('#' + config.ids.mapLarge).remove();
+        dom.interactive.addClass(config.classes.scale);
+        q('#' + config.ids.mapLarge).remove();
 
         var animProperties = {
                 backgroundSize: '900px',
@@ -150,10 +152,10 @@ var Dollar = (function($) {
             ease = 'easeInOutQuart';
 
         transitioning = true;
-        dom.container.animate(animProperties, duration, ease);
+        dom.dollar.animate(animProperties, duration, ease);
         q('.' + config.classes.layer).animate(animProperties, duration, ease, function() {
-            $('#' + config.ids.mapSmall).removeClass(config.classes.hidden);
-            $('.' + config.classes.mapImage).attr('usemap', '#' + config.ids.mapSmall);
+            q('#' + config.ids.mapSmall).removeClass(config.classes.hidden);
+            q('.' + config.classes.mapImage).attr('usemap', '#' + config.ids.mapSmall);
             transitioning = false;
         });
     };
