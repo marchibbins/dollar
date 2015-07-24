@@ -77,6 +77,17 @@ body:after {
     color: #ffffff;
 }
 
+.HYD__text:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 480px;
+    height: 60px;
+    background: transparent;
+    background-image: linear-gradient(to bottom, transparent, #356555)
+}
+
 .HYD__titlebox {
     position: absolute;
     top: -90px;
