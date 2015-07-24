@@ -6,8 +6,10 @@ var HelloYesDollar = (function ($) {
         },
         classes: {
             active:   'HYD__active',
+            back:     'HYD__back',
             hidden:   'HYD__hidden',
             layer:    'HYD__layer',
+            map:      'HYD__map',
             mapImage: 'HYD__map-image',
             scale:    'HYD__scale',
             section:  'HYD__section',
@@ -36,9 +38,16 @@ var HelloYesDollar = (function ($) {
 
     transition = {
         init: false,
-        size: 900,
-        x: -150,
-        y: -410,
+        large: {
+            size: 1200,
+            x: -300,
+            y: -450
+        },
+        small: {
+            size: 900,
+            x: -150,
+            y: -410
+        },
         duration: 1000,
         easing: 'easeInOutQuart',
     },
@@ -132,6 +141,20 @@ var HelloYesDollar = (function ($) {
         } else {
             showText(targetId);
         }
+
+        complete();
+    },
+
+    complete = function () {
+        if (q('.' + config.classes.section + '.' + config.classes.active).length === dom.sections.length) {
+            var back = q('.' + config.classes.back);
+            back.show().on('click', function (event) {
+                event.preventDefault();
+                back.remove();
+                q('.' + config.classes.map + ', .' + config.classes.text).remove();
+                q('.' + config.classes.layer).animateBackground(transition.large.size, transition.large.x, transition.large.y, transition.duration, transition.easing);
+            });
+        }
     },
 
     resetToggles = function () {
@@ -149,7 +172,7 @@ var HelloYesDollar = (function ($) {
         transition.init = true;
 
         q('.' + config.classes.layer)
-            .animateBackground(transition.size, transition.x, transition.y, transition.duration, transition.easing, function () {
+            .animateBackground(transition.small.size, transition.small.x, transition.small.y, transition.duration, transition.easing, function () {
                 q('[name="' + config.maps.small + '"]').removeClass(config.classes.hidden);
                 q('.' + config.classes.mapImage).attr('usemap', '#' + config.maps.small);
                 transition.init = false;

@@ -123,6 +123,16 @@ body:after {
     overflow: hidden;
 }
 
+.HYD__back {
+    position: absolute;
+    top: 30px;
+    left: 45px;
+    width: 36px;
+    height: 36px;
+    background: url(../images/back.png);
+    background-size: 36px;
+}
+
 .HYD__hidden {
     display: none;
 }
