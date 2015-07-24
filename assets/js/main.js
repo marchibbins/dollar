@@ -10,7 +10,8 @@ var HelloYesDollar = (function ($) {
             layer:    'HYD__layer',
             mapImage: 'HYD__map-image',
             scale:    'HYD__scale',
-            section:  'HYD__section'
+            section:  'HYD__section',
+            text:     'HYD__text'
         },
         maps: {
             large:    'HYD__map--large',
@@ -118,7 +119,9 @@ var HelloYesDollar = (function ($) {
             .removeClass(config.classes.hidden);
 
         if (!dom.interactive.hasClass(config.classes.scale)) {
-            resizeBackgrounds();
+            resizeBackgrounds(targetId);
+        } else {
+            showText(targetId);
         }
     },
 
@@ -131,7 +134,7 @@ var HelloYesDollar = (function ($) {
         });
     },
 
-    resizeBackgrounds = function () {
+    resizeBackgrounds = function (targetId) {
         dom.interactive.addClass(config.classes.scale);
         q('[name="' + config.maps.large + '"]').remove();
         transition.init = true;
@@ -141,7 +144,21 @@ var HelloYesDollar = (function ($) {
                 q('[name="' + config.maps.small + '"]').removeClass(config.classes.hidden);
                 q('.' + config.classes.mapImage).attr('usemap', '#' + config.maps.small);
                 transition.init = false;
+                showText(targetId);
             });
+    },
+
+    showText = function (targetId) {
+        var text = q('.' + config.classes.text);
+        if (text.hasClass(config.classes.hidden)) {
+            q('[data-text="' + targetId + '"]').removeClass(config.classes.hidden);
+            text.fadeIn(fadeSpeed, function () {
+                text.removeClass(config.classes.hidden);
+            });
+        } else {
+            q('[data-text]').hide();
+            q('[data-text="' + targetId + '"]').fadeIn(fadeSpeed);
+        }
     };
 
     return {

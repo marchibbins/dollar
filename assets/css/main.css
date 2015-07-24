@@ -36,7 +36,7 @@ body:after {
     font-family: 'Gotham Narrow SSm 3r';
     font-weight: normal;
     font-style: normal;
-    font-size: 16px;
+    font-size: 20px;
     line-height: normal;
 }
 
@@ -67,15 +67,22 @@ body:after {
     position: absolute;
     left: 50px;
     bottom: 0;
-    width: 420px;
-    height: 280px;
-    padding: 5px 40px;
+    width: 428px;
+    height: 315px;
+    overflow: hidden;
+    padding: 0 36px;
     background-color: #356555;
     color: #ffffff;
 }
 
 .HYD__title {
-    font-size: 20px;
+    font-size: 26px;
+    margin-top: 18px;
+    margin-bottom: 34px;
+}
+
+.HYD__paragraph {
+    margin-bottom: 16px;
 }
 
 .HYD__hidden {
