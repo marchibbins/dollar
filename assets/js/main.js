@@ -1,4 +1,4 @@
-var HelloYesDollar = (function($) {
+var HelloYesDollar = (function ($) {
 
     var config = {
         ids: {
@@ -19,22 +19,29 @@ var HelloYesDollar = (function($) {
     },
     dom = {},
 
-    transitioning = false,
-    transitionDuration = 1000,
-    transitionEasing = 'easeInOutQuart',
-
     fadeSpeed = 400,
 
-    glowing = true,
-    glowSpeed = 100,
-    glowWait = 5000,
-    glowCount = 0,
-    glowDuration;
+    glow = {
+        init: true,
+        speed: 100,
+        wait: 5000,
+        count: 0,
+        duration: 0
+    },
+
+    transition = {
+        init: false,
+        size: 900,
+        x: -150,
+        y: -410,
+        duration: 1000,
+        easing: 'easeInOutQuart',
+    },
 
     init = function () {
         setup();
         attach();
-        setTimeout(glow, glowWait);
+        setTimeout(attract, glow.wait);
         dom.interactive.removeClass(config.classes.hidden);
     },
 
@@ -46,25 +53,25 @@ var HelloYesDollar = (function($) {
         };
     },
 
-    glow = function () {
-        setTimeout(function() {
-            if (glowing) {
-                var section = q(dom.sections[glowCount]);
+    attract = function () {
+        setTimeout(function () {
+            if (glow.init) {
+                var section = q(dom.sections[glow.count]);
                 section.fadeIn(fadeSpeed, function () {
                     section.fadeOut(fadeSpeed);
                 });
 
-                glowCount++;
-                if (glowCount == dom.sections.length) {
-                    glowDuration = glowWait;
-                    glowCount = 0;
+                glow.count++;
+                if (glow.count == dom.sections.length) {
+                    glow.duration = glow.wait;
+                    glow.count = 0;
                 } else {
-                    glowDuration = glowSpeed;
+                    glow.duration = glow.speed;
                 }
 
-                glow();
+                attract();
             }
-        }, glowDuration);
+        }, glow.duration);
     },
 
     q = function (selector) {
@@ -79,23 +86,23 @@ var HelloYesDollar = (function($) {
 
             if (!IsTouchDevice) {
                 el.on('mouseenter', function () {
-                    glowing = false;
-                    if (!transitioning) {
+                    glow.init = false;
+                    if (!transition.init) {
                         target.stop().fadeIn(fadeSpeed);
                     }
                 })
 
                 .on('mouseleave', function () {
-                    if (!transitioning) {
+                    if (!transition.init) {
                         target.stop().fadeOut(fadeSpeed);
                     }
                 })
             };
 
             el.on('click', function (event) {
-                glowing = false;
+                glow.init = false;
                 event.preventDefault();
-                if (!transitioning) {
+                if (!transition.init) {
                     selectSection(targetId, target);
                 }
             });
@@ -127,13 +134,13 @@ var HelloYesDollar = (function($) {
     resizeBackgrounds = function () {
         dom.interactive.addClass(config.classes.scale);
         q('[name="' + config.maps.large + '"]').remove();
-        transitioning = true;
+        transition.init = true;
 
         q('.' + config.classes.layer)
-            .animateBackground(900, -150, -410, transitionDuration, transitionEasing, function() {
+            .animateBackground(transition.size, transition.x, transition.y, transition.duration, transition.easing, function () {
                 q('[name="' + config.maps.small + '"]').removeClass(config.classes.hidden);
                 q('.' + config.classes.mapImage).attr('usemap', '#' + config.maps.small);
-                transitioning = false;
+                transition.init = false;
             });
     };
 
@@ -143,7 +150,7 @@ var HelloYesDollar = (function($) {
 
 })(jQuery);
 
-$.fn.animateBackground = function(size, x, y, duration, easing, callback) {
+$.fn.animateBackground = function (size, x, y, duration, easing, callback) {
     var position = this.css('background-position').split(' ');
     this.size = parseInt(this.css('background-size')) || 0,
     this.x = parseInt(position[0]) || 0,
@@ -156,9 +163,9 @@ $.fn.animateBackground = function(size, x, y, duration, easing, callback) {
     }, {
         duration: duration,
         easing: easing
-    }).progress(function(e) {
-        this.css('background-size', e.tweens[0].now + 'px');
-        this.css('background-position', e.tweens[1].now + 'px ' + e.tweens[2].now + 'px');
+    }).progress(function (event) {
+        this.css('background-size', event.tweens[0].now + 'px');
+        this.css('background-position', event.tweens[1].now + 'px ' + event.tweens[2].now + 'px');
     }).done(callback);
 
     return this;
@@ -169,6 +176,6 @@ IsTouchDevice = 'ontouchstart' in window // Most browsers
 
 FastClick.attach(document.body);
 
-$(window).load(function() {
+$(window).load(function () {
     HelloYesDollar.init();
 });
