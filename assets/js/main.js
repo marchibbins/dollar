@@ -171,8 +171,7 @@ $.fn.animateBackground = function (size, x, y, duration, easing, callback) {
     return this;
 }
 
-IsTouchDevice = 'ontouchstart' in window // Most browsers
-    || 'onmsgesturechange' in window; // IE10
+IsTouchDevice = 'ontouchstart' in window; // Most browsers, not IE10
 
 FastClick.attach(document.body);
 
