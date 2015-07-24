@@ -3,7 +3,6 @@ var Dollar = (function($) {
     var config = {
         ids: {
             interactive: 'dollar-interactive',
-            dollar: 'zero',
             mapLarge: 'map-large',
             mapSmall: 'map-small'
         },
@@ -37,7 +36,6 @@ var Dollar = (function($) {
     setup = function () {
         dom = {
             interactive: $('#' + config.ids.interactive),
-            dollar: q('#' + config.ids.dollar),
             toggles: q('[data-target]'),
             sections: q('.' + config.classes.section)
         };
@@ -134,8 +132,7 @@ var Dollar = (function($) {
             ease = 'easeInOutQuart';
 
         transitioning = true;
-        q('.' + config.classes.layer).animate(animProperties, duration, ease);
-        dom.dollar.animate(animProperties, duration, ease, function() {
+        q('.' + config.classes.layer).animate(animProperties, duration, ease, function() {
             q('#' + config.ids.mapSmall).removeClass(config.classes.hidden);
             q('.' + config.classes.mapImage).attr('usemap', '#' + config.ids.mapSmall);
             transitioning = false;
