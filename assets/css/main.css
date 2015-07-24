@@ -105,6 +105,7 @@ body:after {
 .HYD__paragraph {
     margin-top: 0;
     margin-bottom: 18px;
+    padding-left: 5px;
 }
 
 .HYD__title {
@@ -116,6 +117,7 @@ body:after {
 .HYD__scroll {
     margin: 0;
     height: 208px;
+    padding-left: 20px;
     padding-right: 25px;
     position: relative;
     overflow: hidden;
