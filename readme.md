@@ -1,3 +1,1 @@
-## TODO
-
-- Legacy browsers
+## Dollar
