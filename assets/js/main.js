@@ -28,6 +28,7 @@ var HelloYesDollar = (function ($) {
     glow = {
         init: true,
         speed: 100,
+        start: 1000,
         wait: 5000,
         count: 0,
         duration: 0
@@ -45,7 +46,7 @@ var HelloYesDollar = (function ($) {
     init = function () {
         setup();
         attach();
-        setTimeout(attract, glow.wait);
+        setTimeout(attract, glow.start);
         dom.interactive.removeClass(config.classes.hidden);
     },
 
