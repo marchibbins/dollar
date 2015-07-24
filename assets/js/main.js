@@ -8,12 +8,15 @@ var Dollar = (function($) {
             three: 'three',
             four: 'four',
             five: 'five',
-            six: 'six'
+            six: 'six',
+            mapLarge: 'map-large',
+            mapSmall: 'map-small'
         },
         classes: {
             active: 'active',
             hidden: 'hidden',
             layer: 'layer',
+            mapImage: 'map-image',
             scale: 'scale'
         }
     },
@@ -106,15 +109,15 @@ var Dollar = (function($) {
                 glowing = false;
                 event.preventDefault();
                 if (!transitioning) {
-                    selectSection(el, target);
+                    selectSection(targetId, target);
                 }
             });
         });
     },
 
-    selectSection = function (el, target) {
+    selectSection = function (targetId, target) {
         resetToggles();
-        el.unbind('mouseenter mouseleave');
+        $('[data-target="' + targetId + '"]').unbind('mouseenter mouseleave');
 
         target.stop().fadeTo(0, 100)
             .addClass(config.classes.active)
@@ -135,7 +138,7 @@ var Dollar = (function($) {
 
     resizeBackgrounds = function () {
         dom.container.addClass(config.classes.scale);
-        dom.toggles.addClass(config.classes.hidden);
+        $('#' + config.ids.mapLarge).remove();
 
         var animProperties = {
                 backgroundSize: '900px',
@@ -148,7 +151,8 @@ var Dollar = (function($) {
         transitioning = true;
         dom.container.animate(animProperties, duration, ease);
         q('.' + config.classes.layer).animate(animProperties, duration, ease, function() {
-            dom.toggles.removeClass(config.classes.hidden);
+            $('#' + config.ids.mapSmall).removeClass(config.classes.hidden);
+            $('.' + config.classes.mapImage).attr('usemap', '#' + config.ids.mapSmall);
             transitioning = false;
         });
     };
