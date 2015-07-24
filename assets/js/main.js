@@ -167,8 +167,11 @@ var HelloYesDollar = (function ($) {
                 text.removeClass(config.classes.hidden);
             });
         } else {
-            q('[data-text]').hide();
-            q('[data-text="' + targetId + '"]').fadeIn(fadeSpeed);
+            var text = q('[data-text="' + targetId + '"]');
+            if (!text.is(':visible')) {
+                q('[data-text]').hide();
+                text.fadeIn(fadeSpeed);
+            }
         }
 
         // Hack to trigger change, i.e. init the scollbar 'active'
