@@ -33,6 +33,11 @@ body:after {
 
 .HYD__container {
     position: relative;
+    font-family: 'Gotham Narrow SSm 3r';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 16px;
+    line-height: normal;
 }
 
 .HYD__layer {
@@ -63,10 +68,14 @@ body:after {
     left: 50px;
     bottom: 0;
     width: 420px;
-    height: 270px;
-    padding: 10px 40px;
+    height: 280px;
+    padding: 5px 40px;
     background-color: #356555;
     color: #ffffff;
+}
+
+.HYD__title {
+    font-size: 20px;
 }
 
 .HYD__hidden {
