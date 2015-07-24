@@ -58,6 +58,17 @@ body:after {
     opacity: 0;
 }
 
+.HYD__text {
+    position: absolute;
+    left: 50px;
+    bottom: 0;
+    width: 420px;
+    height: 270px;
+    padding: 10px 40px;
+    background-color: #356555;
+    color: #ffffff;
+}
+
 .HYD__hidden {
     display: none;
 }
