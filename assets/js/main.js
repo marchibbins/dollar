@@ -20,6 +20,9 @@ var HelloYesDollar = (function($) {
     dom = {},
 
     transitioning = false,
+    transitionDuration = 1000,
+    transitionEasing = 'easeInOutQuart',
+
     fadeSpeed = 400,
 
     glowing = true,
@@ -124,21 +127,14 @@ var HelloYesDollar = (function($) {
     resizeBackgrounds = function () {
         dom.interactive.addClass(config.classes.scale);
         q('[name="' + config.maps.large + '"]').remove();
-
-        var animProperties = {
-                backgroundSize: '900px',
-                backgroundPositionX: -150,
-                backgroundPositionY: -410
-            },
-            duration = 1000,
-            ease = 'easeInOutQuart';
-
         transitioning = true;
-        q('.' + config.classes.layer).animate(animProperties, duration, ease, function() {
-            q('[name="' + config.maps.small + '"]').removeClass(config.classes.hidden);
-            q('.' + config.classes.mapImage).attr('usemap', '#' + config.maps.small);
-            transitioning = false;
-        });
+
+        q('.' + config.classes.layer)
+            .animateBackground(900, -150, -410, transitionDuration, transitionEasing, function() {
+                q('[name="' + config.maps.small + '"]').removeClass(config.classes.hidden);
+                q('.' + config.classes.mapImage).attr('usemap', '#' + config.maps.small);
+                transitioning = false;
+            });
     };
 
     return {
@@ -146,6 +142,27 @@ var HelloYesDollar = (function($) {
     };
 
 })(jQuery);
+
+$.fn.animateBackground = function(size, x, y, duration, easing, callback) {
+    var position = this.css('background-position').split(' ');
+    this.size = parseInt(this.css('background-size')) || 0,
+    this.x = parseInt(position[0]) || 0,
+    this.y = parseInt(position[1]) || 0;
+
+    $.Animation(this, {
+        size: size,
+        x: x,
+        y: y
+    }, {
+        duration: duration,
+        easing: easing
+    }).progress(function(e) {
+        this.css('background-size', e.tweens[0].now + 'px');
+        this.css('background-position', e.tweens[1].now + 'px ' + e.tweens[2].now + 'px');
+    }).done(callback);
+
+    return this;
+}
 
 IsTouchDevice = 'ontouchstart' in window // Most browsers
     || 'onmsgesturechange' in window; // IE10
