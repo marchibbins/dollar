@@ -152,8 +152,8 @@ var Dollar = (function($) {
             ease = 'easeInOutQuart';
 
         transitioning = true;
-        dom.dollar.animate(animProperties, duration, ease);
-        q('.' + config.classes.layer).animate(animProperties, duration, ease, function() {
+        q('.' + config.classes.layer).animate(animProperties, duration, ease);
+        dom.dollar.animate(animProperties, duration, ease, function() {
             q('#' + config.ids.mapSmall).removeClass(config.classes.hidden);
             q('.' + config.classes.mapImage).attr('usemap', '#' + config.ids.mapSmall);
             transitioning = false;
