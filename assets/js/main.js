@@ -72,7 +72,7 @@ var HelloYesDollar = (function($) {
         dom.toggles.each(function (i, el) {
             var el = q(el),
                 targetId = q(el).attr('data-target'),
-                target = q('#' + targetId);
+                target = q('.' + targetId);
 
             if (!IsTouchDevice) {
                 el.on('mouseenter', function () {

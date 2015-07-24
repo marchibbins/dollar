@@ -1,18 +1,18 @@
 
 /* Sections */
-#HYD_0             { background-image: url(../images/dollar_00.png); }
-#HYD_1             { background-image: url(../images/dollar_01.png); }
-#HYD_1.HYD__active { background-image: url(../images/dollar_07.png); }
-#HYD_2             { background-image: url(../images/dollar_02.png); }
-#HYD_2.HYD__active { background-image: url(../images/dollar_08.png); }
-#HYD_3             { background-image: url(../images/dollar_03.png); }
-#HYD_3.HYD__active { background-image: url(../images/dollar_09.png); }
-#HYD_4             { background-image: url(../images/dollar_04.png); }
-#HYD_4.HYD__active { background-image: url(../images/dollar_10.png); }
-#HYD_5             { background-image: url(../images/dollar_05.png); }
-#HYD_5.HYD__active { background-image: url(../images/dollar_11.png); }
-#HYD_6             { background-image: url(../images/dollar_06.png); }
-#HYD_6.HYD__active { background-image: url(../images/dollar_12.png); }
+.HYD_0             { background-image: url(../images/dollar_00.png); }
+.HYD_1             { background-image: url(../images/dollar_01.png); }
+.HYD_1.HYD__active { background-image: url(../images/dollar_07.png); }
+.HYD_2             { background-image: url(../images/dollar_02.png); }
+.HYD_2.HYD__active { background-image: url(../images/dollar_08.png); }
+.HYD_3             { background-image: url(../images/dollar_03.png); }
+.HYD_3.HYD__active { background-image: url(../images/dollar_09.png); }
+.HYD_4             { background-image: url(../images/dollar_04.png); }
+.HYD_4.HYD__active { background-image: url(../images/dollar_10.png); }
+.HYD_5             { background-image: url(../images/dollar_05.png); }
+.HYD_5.HYD__active { background-image: url(../images/dollar_11.png); }
+.HYD_6             { background-image: url(../images/dollar_06.png); }
+.HYD_6.HYD__active { background-image: url(../images/dollar_12.png); }
 
 /* Preload images, TODO: sprite */
 body:after {
@@ -31,7 +31,7 @@ body:after {
              url(../images/dollar_12.png);
 }
 
-.HYD {
+.HYD__container {
     position: relative;
 }
 
