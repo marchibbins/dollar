@@ -1,18 +1,18 @@
 
 /* Sections */
-#zero         { background-image: url(../images/Dollar_Assets_V01_00000.png); }
-#one          { background-image: url(../images/Dollar_Assets_V01_00001.png); }
-#one.active   { background-image: url(../images/Dollar_Assets_V01_00007.png); }
-#two          { background-image: url(../images/Dollar_Assets_V01_00002.png); }
-#two.active   { background-image: url(../images/Dollar_Assets_V01_00008.png); }
-#three        { background-image: url(../images/Dollar_Assets_V01_00003.png); }
-#three.active { background-image: url(../images/Dollar_Assets_V01_00009.png); }
-#four         { background-image: url(../images/Dollar_Assets_V01_00004.png); }
-#four.active  { background-image: url(../images/Dollar_Assets_V01_00010.png); }
-#five         { background-image: url(../images/Dollar_Assets_V01_00005.png); }
-#five.active  { background-image: url(../images/Dollar_Assets_V01_00011.png); }
-#six          { background-image: url(../images/Dollar_Assets_V01_00006.png); }
-#six.active   { background-image: url(../images/Dollar_Assets_V01_00012.png); }
+#HYD_0             { background-image: url(../images/Dollar_Assets_V01_00000.png); }
+#HYD_1             { background-image: url(../images/Dollar_Assets_V01_00001.png); }
+#HYD_1.HYD__active { background-image: url(../images/Dollar_Assets_V01_00007.png); }
+#HYD_2             { background-image: url(../images/Dollar_Assets_V01_00002.png); }
+#HYD_2.HYD__active { background-image: url(../images/Dollar_Assets_V01_00008.png); }
+#HYD_3             { background-image: url(../images/Dollar_Assets_V01_00003.png); }
+#HYD_3.HYD__active { background-image: url(../images/Dollar_Assets_V01_00009.png); }
+#HYD_4             { background-image: url(../images/Dollar_Assets_V01_00004.png); }
+#HYD_4.HYD__active { background-image: url(../images/Dollar_Assets_V01_00010.png); }
+#HYD_5             { background-image: url(../images/Dollar_Assets_V01_00005.png); }
+#HYD_5.HYD__active { background-image: url(../images/Dollar_Assets_V01_00011.png); }
+#HYD_6             { background-image: url(../images/Dollar_Assets_V01_00006.png); }
+#HYD_6.HYD__active { background-image: url(../images/Dollar_Assets_V01_00012.png); }
 
 /* Preload images, TODO: sprite */
 body:after {
@@ -31,33 +31,33 @@ body:after {
              url(../images/Dollar_Assets_V01_00012.png);
 }
 
-.container {
+.HYD {
     position: relative;
 }
 
-.map {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.map-image {
-    opacity: 0;
-}
-
-.section {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.layer {
+.HYD__layer {
     width: 600px;
     height: 900px;
     background-size: 1200px;
     background-position: -300px -450px;
 }
 
-.hidden {
+.HYD__section {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.HYD__map {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.HYD__map-image {
+    opacity: 0;
+}
+
+.HYD__hidden {
     display: none;
 }

@@ -1,18 +1,18 @@
-var Dollar = (function($) {
+var HelloYesDollar = (function($) {
 
     var config = {
         ids: {
-            interactive: 'dollar-interactive',
-            mapLarge: 'map-large',
-            mapSmall: 'map-small'
+            interactive: 'HYD',
+            mapLarge:    'HYD__map--large',
+            mapSmall:    'HYD__map--small'
         },
         classes: {
-            active: 'active',
-            hidden: 'hidden',
-            layer: 'layer',
-            mapImage: 'map-image',
-            scale: 'scale',
-            section: 'section'
+            active:   'HYD__active',
+            hidden:   'HYD__hidden',
+            layer:    'HYD__layer',
+            mapImage: 'HYD__map-image',
+            scale:    'HYD__scale',
+            section:  'HYD__section'
         }
     },
     dom = {},
@@ -151,5 +151,5 @@ IsTouchDevice = 'ontouchstart' in window // Most browsers
 FastClick.attach(document.body);
 
 $(window).load(function() {
-    Dollar.init();
+    HelloYesDollar.init();
 });
