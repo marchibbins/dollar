@@ -32,6 +32,7 @@ var Dollar = (function($) {
         setup();
         attach();
         setTimeout(glow, glowWait);
+        dom.container.removeClass(config.classes.hidden);
     },
 
     setup = function () {
@@ -162,7 +163,8 @@ var Dollar = (function($) {
 IsTouchDevice = 'ontouchstart' in window // Most browsers
     || 'onmsgesturechange' in window; // IE10
 
-$(function() {
-    FastClick.attach(document.body);
+FastClick.attach(document.body);
+
+$(window).load(function() {
     Dollar.init();
 });
