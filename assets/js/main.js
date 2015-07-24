@@ -12,7 +12,9 @@ var HelloYesDollar = (function ($) {
             scale:    'HYD__scale',
             section:  'HYD__section',
             scroll:   'HYD__scroll',
-            text:     'HYD__text'
+            text:     'HYD__text',
+            title:    'HYD__title',
+            titlebox: 'HYD__titlebox'
         },
         maps: {
             large:    'HYD__map--large',
@@ -87,16 +89,22 @@ var HelloYesDollar = (function ($) {
                 target = q('.' + targetId);
 
             if (!IsTouchDevice) {
-                el.on('mouseenter', function () {
+                el.on('mouseenter', function (event) {
                     glow.init = false;
                     if (!transition.init) {
-                        target.stop().fadeIn(fadeSpeed);
+                        if (!target.attr('active')) {
+                            target.stop().fadeIn(fadeSpeed);
+                        }
+                        toggleTitle(event.type, targetId)
                     }
                 })
 
-                .on('mouseleave', function () {
+                .on('mouseleave', function (event) {
                     if (!transition.init) {
-                        target.stop().fadeOut(fadeSpeed);
+                        if (!target.attr('active')) {
+                            target.stop().fadeOut(fadeSpeed);
+                        }
+                        toggleTitle(event.type, targetId)
                     }
                 })
             };
@@ -113,9 +121,8 @@ var HelloYesDollar = (function ($) {
 
     selectSection = function (targetId, target) {
         resetToggles();
-        q('[data-target="' + targetId + '"]').unbind('mouseenter mouseleave');
-
-        target.stop().fadeTo(0, 100)
+        target.attr('active', true)
+            .stop().fadeTo(0, 100)
             .addClass(config.classes.active)
             .removeClass(config.classes.hidden);
 
@@ -152,6 +159,7 @@ var HelloYesDollar = (function ($) {
     showText = function (targetId) {
         var text = q('.' + config.classes.text);
         q('.' + config.classes.scroll).perfectScrollbar();
+        q('.' + config.classes.titlebox).addClass(config.classes.hidden);
 
         if (text.hasClass(config.classes.hidden)) {
             q('[data-text="' + targetId + '"]').removeClass(config.classes.hidden);
@@ -165,6 +173,18 @@ var HelloYesDollar = (function ($) {
 
         // Hack to trigger change, i.e. init the scollbar 'active'
         q('.' + config.classes.scroll).scrollTop(1).scrollTop(0);
+    }
+
+    toggleTitle = function (type, targetId) {
+        if (dom.interactive.hasClass(config.classes.scale)) {
+            var titlebox = q('.' + config.classes.titlebox);
+            if (type === 'mouseenter' && !q('[data-text="' + targetId + '"]').is(':visible')) {
+                var title = q('[data-text="' + targetId + '"] .' + config.classes.title).text();
+                titlebox.text(title).removeClass(config.classes.hidden);
+            } else {
+                titlebox.addClass(config.classes.hidden);
+            }
+        }
     };
 
     return {
