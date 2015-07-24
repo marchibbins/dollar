@@ -163,7 +163,7 @@ var HelloYesDollar = (function ($) {
 
         if (text.hasClass(config.classes.hidden)) {
             q('[data-text="' + targetId + '"]').removeClass(config.classes.hidden);
-            text.fadeIn(fadeSpeed, function () {
+            text.fadeIn({duration: fadeSpeed, queue: false}).animate({bottom: 0}, fadeSpeed, function () {
                 text.removeClass(config.classes.hidden);
             });
         } else {
