@@ -4,12 +4,6 @@ var Dollar = (function($) {
         ids: {
             interactive: 'dollar-interactive',
             dollar: 'zero',
-            one: 'one',
-            two: 'two',
-            three: 'three',
-            four: 'four',
-            five: 'five',
-            six: 'six',
             mapLarge: 'map-large',
             mapSmall: 'map-small'
         },
@@ -18,7 +12,8 @@ var Dollar = (function($) {
             hidden: 'hidden',
             layer: 'layer',
             mapImage: 'map-image',
-            scale: 'scale'
+            scale: 'scale',
+            section: 'section'
         }
     },
     dom = {},
@@ -44,28 +39,14 @@ var Dollar = (function($) {
             interactive: $('#' + config.ids.interactive),
             dollar: q('#' + config.ids.dollar),
             toggles: q('[data-target]'),
-            sections: []
+            sections: q('.' + config.classes.section)
         };
-
-        var sections = [
-            config.ids.one,
-            config.ids.two,
-            config.ids.three,
-            config.ids.four,
-            config.ids.five,
-            config.ids.six,
-        ];
-
-        $(sections).each(function (i, sectionId) {
-            var section = q('#' + sectionId);
-            dom.sections.push(section);
-        });
     },
 
     glow = function () {
         setTimeout(function() {
             if (glowing) {
-                var section = dom.sections[glowCount];
+                var section = q(dom.sections[glowCount]);
                 section.fadeIn(fadeSpeed, function () {
                     section.fadeOut(fadeSpeed);
                 });
@@ -133,6 +114,7 @@ var Dollar = (function($) {
 
     resetToggles = function () {
         $(dom.sections).each(function (i, section) {
+            section = q(section);
             if (!section.hasClass(config.classes.active)) {
                 section.stop().fadeOut(0, 0).addClass(config.classes.hidden);
             }
