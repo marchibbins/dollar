@@ -152,6 +152,7 @@ var HelloYesDollar = (function ($) {
     showText = function (targetId) {
         var text = q('.' + config.classes.text);
         q('.' + config.classes.scroll).perfectScrollbar();
+
         if (text.hasClass(config.classes.hidden)) {
             q('[data-text="' + targetId + '"]').removeClass(config.classes.hidden);
             text.fadeIn(fadeSpeed, function () {
@@ -161,6 +162,9 @@ var HelloYesDollar = (function ($) {
             q('[data-text]').hide();
             q('[data-text="' + targetId + '"]').fadeIn(fadeSpeed);
         }
+
+        // Hack to trigger change, i.e. init the scollbar 'active'
+        q('.' + config.classes.scroll).scrollTop(1).scrollTop(0);
     };
 
     return {

@@ -93,10 +93,17 @@ body:after {
     overflow: hidden;
 }
 
-.HYD__list {
-    margin: 0;
-}
-
 .HYD__hidden {
     display: none;
+}
+
+/* Scroll bar */
+.HYD__scroll > .ps-scrollbar-y-rail {
+    background-color: #99b1a9 !important;
+    opacity: 1 !important;
+}
+
+.HYD__scroll > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+    background-color: #ffffff !important;
+    opacity: 1 !important;
 }
