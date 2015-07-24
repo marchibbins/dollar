@@ -11,6 +11,7 @@ var HelloYesDollar = (function ($) {
             mapImage: 'HYD__map-image',
             scale:    'HYD__scale',
             section:  'HYD__section',
+            scroll:   'HYD__scroll',
             text:     'HYD__text'
         },
         maps: {
@@ -150,6 +151,7 @@ var HelloYesDollar = (function ($) {
 
     showText = function (targetId) {
         var text = q('.' + config.classes.text);
+        q('.' + config.classes.scroll).perfectScrollbar();
         if (text.hasClass(config.classes.hidden)) {
             q('[data-text="' + targetId + '"]').removeClass(config.classes.hidden);
             text.fadeIn(fadeSpeed, function () {

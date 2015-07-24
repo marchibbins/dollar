@@ -65,14 +65,18 @@ body:after {
 
 .HYD__text {
     position: absolute;
-    left: 50px;
+    left: 45px;
     bottom: 0;
-    width: 428px;
+    width: 460px;
     height: 315px;
-    overflow: hidden;
-    padding: 0 36px;
+    padding: 0 15px 0 35px;
     background-color: #356555;
     color: #ffffff;
+}
+
+.HYD__paragraph {
+    margin-top: 0;
+    margin-bottom: 18px;
 }
 
 .HYD__title {
@@ -81,8 +85,16 @@ body:after {
     margin-bottom: 34px;
 }
 
-.HYD__paragraph {
-    margin-bottom: 16px;
+.HYD__scroll {
+    margin: 0;
+    height: 208px;
+    padding-right: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.HYD__list {
+    margin: 0;
 }
 
 .HYD__hidden {
