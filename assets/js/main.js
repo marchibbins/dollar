@@ -146,24 +146,6 @@ var HelloYesDollar = (function ($) {
         } else {
             showText(targetId);
         }
-
-        // complete();
-    },
-
-    complete = function () {
-        if (q('.' + config.classes.active, dom.sections).length === dom.sections.length) {
-            var back = q('.' + config.classes.back);
-            back.show().on('click', function (event) {
-                event.preventDefault();
-                back.remove();
-                q('.' + config.classes.map + ', .' + config.classes.text).remove();
-                q('.' + config.classes.future).remove();
-                setTimeout(function() {
-                    q('.' + config.classes.base).animateBackground(transition.large.size, transition.large.baseX, transition.large.y, transition.large.duration, transition.easing);
-                    q('.' + config.classes.section).animateBackground(transition.large.size, transition.large.x, transition.large.y, transition.large.duration, transition.easing);
-                }, 100);
-            });
-        }
     },
 
     resetToggles = function () {
