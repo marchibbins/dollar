@@ -42,14 +42,15 @@ var HelloYesDollar = (function ($) {
         large: {
             size: 1067,
             x: -267,
-            y: -400
+            y: -400,
+            duration: 1500
         },
         small: {
             size: 780,
             x: -123,
-            y: -374
+            y: -374,
+            duration: 1000
         },
-        duration: 1000,
         easing: 'easeInOutQuart',
     },
 
@@ -154,7 +155,9 @@ var HelloYesDollar = (function ($) {
                 back.remove();
                 q('.' + config.classes.map + ', .' + config.classes.text).remove();
                 q('.' + config.classes.future).remove();
-                q('.' + config.classes.layer).animateBackground(transition.large.size, transition.large.x, transition.large.y, transition.duration, transition.easing);
+                setTimeout(function() {
+                    q('.' + config.classes.layer).animateBackground(transition.large.size, transition.large.x, transition.large.y, transition.large.duration, transition.easing);
+                }, 100);
             });
         }
     },
@@ -175,7 +178,7 @@ var HelloYesDollar = (function ($) {
         transition.init = true;
 
         q('.' + config.classes.layer)
-            .animateBackground(transition.small.size, transition.small.x, transition.small.y, transition.duration, transition.easing, function () {
+            .animateBackground(transition.small.size, transition.small.x, transition.small.y, transition.small.duration, transition.easing, function () {
                 q('[name="' + config.maps.small + '"]').removeClass(config.classes.hidden);
                 q('.' + config.classes.mapImage).attr('usemap', '#' + config.maps.small);
                 transition.init = false;
