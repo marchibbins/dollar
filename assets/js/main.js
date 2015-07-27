@@ -259,8 +259,7 @@ $.fn.animateBackground = function (size, x, y, duration, easing, callback) {
 
 IsTouchDevice = 'ontouchstart' in window; // Most browsers, not IE10
 
-FastClick.attach(document.body);
-
 $(window).load(function () {
+    FastClick.attach(document.body);
     HelloYesDollar.init();
 });
