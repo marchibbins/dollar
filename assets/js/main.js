@@ -168,6 +168,7 @@ var HelloYesDollar = (function ($) {
 
     resizeBackgrounds = function (targetId) {
         dom.interactive.addClass(config.classes.scale);
+        q('.' + config.classes.text).addClass(config.classes.hidden);
         q('[name="' + config.maps.large + '"]').remove();
         transition.init = true;
 
@@ -203,14 +204,12 @@ var HelloYesDollar = (function ($) {
     }
 
     toggleTitle = function (type, targetId) {
-        if (dom.interactive.hasClass(config.classes.scale)) {
-            var titlebox = q('.' + config.classes.titlebox);
-            if (type === 'mouseenter' && !q('[data-text="' + targetId + '"]').is(':visible')) {
-                var title = q('[data-text="' + targetId + '"] .' + config.classes.title).text();
-                titlebox.text(title).removeClass(config.classes.hidden);
-            } else {
-                titlebox.addClass(config.classes.hidden);
-            }
+        var titlebox = q('.' + config.classes.titlebox);
+        if (type === 'mouseenter' && !q('[data-text="' + targetId + '"]').is(':visible')) {
+            var title = q('[data-text="' + targetId + '"] .' + config.classes.title).text();
+            titlebox.text(title).removeClass(config.classes.hidden);
+        } else {
+            titlebox.addClass(config.classes.hidden);
         }
     };
 
