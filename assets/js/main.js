@@ -7,6 +7,7 @@ var HelloYesDollar = (function ($) {
         classes: {
             active:   'HYD__active',
             back:     'HYD__back',
+            future:   'HYD__future',
             hidden:   'HYD__hidden',
             layer:    'HYD__layer',
             map:      'HYD__map',
@@ -63,7 +64,7 @@ var HelloYesDollar = (function ($) {
         dom = {
             interactive: $('#' + config.ids.interactive),
             toggles: q('[data-target]'),
-            sections: q('.' + config.classes.section)
+            sections: q('.' + config.classes.section + ':not(.' + config.classes.future + ')')
         };
     },
 
@@ -92,14 +93,16 @@ var HelloYesDollar = (function ($) {
         dom.toggles.each(function (i, el) {
             var el = q(el),
                 targetId = q(el).attr('data-target'),
-                target = q('.' + targetId);
+                target = q('.' + targetId),
+                activeTarget = q('.' + targetId + '--' + config.classes.future);
 
             if (!IsTouchDevice) {
                 el.on('mouseenter', function (event) {
                     glow.init = false;
                     if (!transition.init) {
-                        if (!target.attr('active')) {
-                            target.stop().fadeIn(fadeSpeed);
+                        var hover = target.attr('active') ? activeTarget : target;
+                        if (!currentText(targetId)) {
+                            hover.stop().fadeIn(fadeSpeed);
                         }
                         toggleTitle(event.type, targetId)
                     }
@@ -107,8 +110,9 @@ var HelloYesDollar = (function ($) {
 
                 .on('mouseleave', function (event) {
                     if (!transition.init) {
-                        if (!target.attr('active')) {
-                            target.stop().fadeOut(fadeSpeed);
+                        var hover = target.attr('active') ? activeTarget : target;
+                        if (!currentText(targetId)) {
+                            hover.stop().fadeOut(fadeSpeed);
                         }
                         toggleTitle(event.type, targetId)
                     }
@@ -119,14 +123,15 @@ var HelloYesDollar = (function ($) {
                 glow.init = false;
                 event.preventDefault();
                 if (!transition.init) {
-                    selectSection(targetId, target);
+                    selectSection(targetId, target, activeTarget);
                 }
             });
         });
     },
 
-    selectSection = function (targetId, target) {
+    selectSection = function (targetId, target, activeTarget) {
         resetToggles();
+        activeTarget.hide();
         target.attr('active', true)
             .stop().fadeTo(0, 100)
             .addClass(config.classes.active)
@@ -142,12 +147,13 @@ var HelloYesDollar = (function ($) {
     },
 
     complete = function () {
-        if (q('.' + config.classes.section + '.' + config.classes.active).length === dom.sections.length) {
+        if (q('.' + config.classes.active, dom.sections).length === dom.sections.length) {
             var back = q('.' + config.classes.back);
             back.show().on('click', function (event) {
                 event.preventDefault();
                 back.remove();
                 q('.' + config.classes.map + ', .' + config.classes.text).remove();
+                q('.' + config.classes.future).remove();
                 q('.' + config.classes.layer).animateBackground(transition.large.size, transition.large.x, transition.large.y, transition.duration, transition.easing);
             });
         }
@@ -188,20 +194,23 @@ var HelloYesDollar = (function ($) {
                 text.removeClass(config.classes.hidden);
             });
         } else {
-            var text = q('[data-text="' + targetId + '"]');
-            if (!text.is(':visible')) {
+            if (!currentText(targetId)) {
                 q('[data-text]').hide();
-                text.fadeIn(fadeSpeed);
+                q('[data-text="' + targetId + '"]').fadeIn(fadeSpeed);
             }
         }
 
         // Hack to trigger change, i.e. init the scollbar 'active'
         q('.' + config.classes.scroll).scrollTop(1).scrollTop(0);
-    }
+    },
+
+    currentText = function (targetId) {
+        return q('[data-text="' + targetId + '"]').is(':visible')
+    },
 
     toggleTitle = function (type, targetId) {
         var titlebox = q('.' + config.classes.titlebox);
-        if (type === 'mouseenter' && !q('[data-text="' + targetId + '"]').is(':visible')) {
+        if (type === 'mouseenter' && !currentText(targetId)) {
             var title = q('[data-text="' + targetId + '"] .' + config.classes.title).text();
             titlebox.text(title).removeClass(config.classes.hidden);
         } else {
