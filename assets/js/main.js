@@ -39,14 +39,14 @@ var HelloYesDollar = (function ($) {
     transition = {
         init: false,
         large: {
-            size: 1200,
-            x: -300,
-            y: -450
+            size: 1067,
+            x: -267,
+            y: -400
         },
         small: {
-            size: 900,
-            x: -150,
-            y: -410
+            size: 780,
+            x: -123,
+            y: -374
         },
         duration: 1000,
         easing: 'easeInOutQuart',

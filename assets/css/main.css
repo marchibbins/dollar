@@ -34,7 +34,7 @@ body:after {
 .HYD__container {
     position: relative;
     width: 600px;
-    height: 900px;
+    height: 800px;
     overflow: hidden;
     font-family: 'Gotham Narrow SSm 3r';
     font-weight: normal;
@@ -44,27 +44,32 @@ body:after {
 }
 
 .HYD__layer {
-    width: 600px;
-    height: 900px;
-    background-size: 1200px;
-    background-position: -300px -450px;
+    width: 534px;
+    height: 800px;
+    margin: 0 auto;
+    background-size: 1067px; /* Double width */
+    background-position: -267px -400px; /* Half of dimensions */
 }
 
 .HYD__section {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 33px; /* Half of 600-534 */
 }
 
 .HYD__map {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 33px; /* Half of 600-534 */
 }
 
 .HYD__map-image {
     border: 0;
     opacity: 0;
+}
+
+.HYD__area {
+    outline: 0;
 }
 
 .HYD__text {
