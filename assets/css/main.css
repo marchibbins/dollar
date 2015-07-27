@@ -63,6 +63,11 @@ body:after {
     background-position: -267px -400px; /* Half of dimensions */
 }
 
+.HYD__base {
+    width: 600px;
+    background-position: -233px -400px;
+}
+
 .HYD__section {
     position: absolute;
     top: 0;
