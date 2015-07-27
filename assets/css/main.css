@@ -39,7 +39,7 @@ body:after {
     font-family: 'Gotham Narrow SSm 3r';
     font-weight: normal;
     font-style: normal;
-    font-size: 20px;
+    font-size: 16px;
     line-height: normal;
 }
 
@@ -112,7 +112,7 @@ body:after {
 .HYD__title {
     font-size: 26px;
     margin-top: 18px;
-    margin-bottom: 34px;
+    margin-bottom: 28px;
 }
 
 .HYD__scroll {
