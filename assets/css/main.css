@@ -153,16 +153,6 @@ body:after {
     overflow: hidden;
 }
 
-.HYD__back {
-    position: absolute;
-    top: 30px;
-    left: 45px;
-    width: 38px;
-    height: 38px;
-    background: url(../images/back.png) no-repeat;
-    background-size: 36px;
-}
-
 .HYD__hidden {
     display: none;
 }

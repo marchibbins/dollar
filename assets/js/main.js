@@ -147,7 +147,7 @@ var HelloYesDollar = (function ($) {
             showText(targetId);
         }
 
-        complete();
+        // complete();
     },
 
     complete = function () {
