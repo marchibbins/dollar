@@ -88,10 +88,6 @@ var HelloYesDollar = (function ($) {
         }, glow.duration);
     },
 
-    q = function (selector) {
-        return $(selector, dom.interactive);
-    },
-
     attach = function () {
         dom.toggles.each(function (i, el) {
             var el = q(el),
@@ -211,6 +207,10 @@ var HelloYesDollar = (function ($) {
         } else {
             titlebox.addClass(config.classes.hidden);
         }
+    },
+
+    q = function (selector) {
+        return $(selector, dom.interactive);
     };
 
     return {
