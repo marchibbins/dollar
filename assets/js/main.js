@@ -33,7 +33,7 @@ var HelloYesDollar = (function ($) {
         init: true,
         speed: 100,
         start: 1000,
-        wait: 3000,
+        wait: 1500,
         count: 0,
         duration: 0
     },
