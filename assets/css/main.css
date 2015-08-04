@@ -55,6 +55,12 @@ body:after {
     line-height: normal;
 }
 
+@media screen and (max-width: 480px) {
+    .HYD__container {
+        font-size: 16px;
+    }
+}
+
 .HYD__layer {
     width: 534px;
     height: 800px;
