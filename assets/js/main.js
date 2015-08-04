@@ -28,7 +28,7 @@ var HelloYesDollar = (function ($) {
     dom = {},
 
     fadeSpeed = 400,
-    hoverSpeed = 50,
+    hoverSpeed = 800,
 
     glow = {
         init: true,
