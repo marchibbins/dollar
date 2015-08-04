@@ -28,6 +28,7 @@ var HelloYesDollar = (function ($) {
     dom = {},
 
     fadeSpeed = 400,
+    hoverSpeed = 50,
 
     glow = {
         init: true,
@@ -100,30 +101,33 @@ var HelloYesDollar = (function ($) {
                 target = q('.' + targetId),
                 activeTarget = q('.' + targetId + '--' + config.classes.future);
 
-            if (!IsTouchDevice) {
-                el.on('mouseenter', function (event) {
-                    glow.init = false;
-                    if (!transition.init) {
-                        var hover = target.attr('active') ? activeTarget : target;
-                        if (!currentText(targetId)) {
-                            hover.stop().fadeIn(fadeSpeed);
-                        }
-                        toggleTitle(event.type, targetId)
+            el.on('mouseenter', function (event) {
+                glow.init = false;
+                if (!transition.init) {
+                    var hover = target.attr('active') ? activeTarget : target;
+                    if (!currentText(targetId)) {
+                        hover.stop().fadeIn(fadeSpeed);
                     }
-                })
-
-                .on('mouseleave', function (event) {
-                    if (!transition.init) {
-                        var hover = target.attr('active') ? activeTarget : target;
-                        if (!currentText(targetId)) {
-                            hover.stop().fadeOut(fadeSpeed);
-                        }
-                        toggleTitle(event.type, targetId)
+                    toggleTitle(event.type, targetId);
+                    if (IsTouchDevice) {
+                        setTimeout(function () {
+                            el.trigger('click');
+                        }, fadeSpeed + hoverSpeed);
                     }
-                })
-            };
+                }
+            })
 
-            el.on('click', function (event) {
+            .on('mouseleave', function (event) {
+                if (!transition.init) {
+                    var hover = target.attr('active') ? activeTarget : target;
+                    if (!currentText(targetId)) {
+                        hover.stop().fadeOut(fadeSpeed);
+                    }
+                    toggleTitle(event.type, targetId);
+                }
+            })
+
+            .on('click', function (event) {
                 glow.init = false;
                 event.preventDefault();
                 if (!transition.init) {
@@ -242,6 +246,5 @@ $.fn.animateBackground = function (size, x, y, duration, easing, callback) {
 IsTouchDevice = 'ontouchstart' in window; // Most browsers, not IE10
 
 $(window).load(function () {
-    FastClick.attach(document.body);
     HelloYesDollar.init();
 });
