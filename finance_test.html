@@ -1,0 +1,16 @@
+<html>
+<head>
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script>
+    window.onload = function () {
+        var dollarWidth = 600;
+        if (window.innerWidth < dollarWidth) {
+            document.getElementById('viewport').setAttribute('content', 'width=' + dollarWidth);
+        }
+    }
+</script>
+</head>
+<body style="margin: 0; padding: 0;">
+    <iframe src="index.html" width="100%" height="800" scrolling="no" frameborder="0"></iframe>
+</body>
+</html>
