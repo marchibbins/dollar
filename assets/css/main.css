@@ -61,7 +61,16 @@ body:after {
 
 @media screen and (max-width: 600px) {
     .HYD__container {
-        font-size: 16px;
+        font-size: 22px;
+    }
+
+    .ps-container > .ps-scrollbar-y-rail,
+    .ps-container > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+        width: 12px;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        -ms-border-radius: 6px;
+        border-radius: 6px;
     }
 }
 
