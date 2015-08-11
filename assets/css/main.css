@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 /* Sections */
@@ -181,13 +182,13 @@ body:after {
 .HYD__mobile .HYD__layer {
     width: 320px;
     height: 500px;
-    background-size: 640px;
-    background-position: -160px -234px;
+    background-size: 575px;
+    background-position: -130px -200px;
 }
 
 .HYD__mobile .HYD__base {
     width: 320px;
-    background-position: -160px -234px;
+    background-position: -130px -200px;
 }
 
 .HYD__mobile .HYD__section,

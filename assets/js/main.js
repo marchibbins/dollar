@@ -27,6 +27,7 @@ var HelloYesDollar = (function ($) {
         }
     },
     dom = {},
+    breakWidth = 600,
 
     fadeSpeed = 400,
     hoverSpeed = 800,
@@ -46,16 +47,15 @@ var HelloYesDollar = (function ($) {
             size: 470,
             baseX: -75,
             x: -75,
-            y: -225,
-            duration: 1000
+            y: -225
         },
         desktop: {
             size: 780,
             baseX: -90,
             x: -123,
-            y: -374,
-            duration: 1000
+            y: -374
         },
+        duration: 1000,
         easing: 'easeInOutQuart',
     },
 
@@ -136,6 +136,25 @@ var HelloYesDollar = (function ($) {
                 }
             });
         });
+
+        $(window).on('resize', function (event) {
+            if (!transition.init) {
+                var e = document.documentElement,
+                    g = document.getElementsByTagName('body')[0],
+                    x = window.innerWidth || e.clientWidth || g.clientWidth;
+                if (x <= breakWidth) {
+                    if (!dom.interactive.hasClass(config.classes.mobile)) {
+                        dom.interactive.addClass(config.classes.mobile);
+                        updateBackgrounds();
+                    }
+                } else {
+                    if (dom.interactive.hasClass(config.classes.mobile)) {
+                        dom.interactive.removeClass(config.classes.mobile);
+                        updateBackgrounds();
+                    }
+                }
+            }
+        }).trigger('resize');
     },
 
     selectSection = function (targetId, target, activeTarget) {
@@ -169,14 +188,22 @@ var HelloYesDollar = (function ($) {
         transition.init = true;
         var transitionParams = dom.interactive.hasClass(config.classes.mobile) ? transition.mobile : transition.desktop;
 
-        q('.' + config.classes.base).animateBackground(transitionParams.size, transitionParams.baseX, transitionParams.y, transitionParams.duration, transition.easing);
+        q('.' + config.classes.base).animateBackground(transitionParams.size, transitionParams.baseX, transitionParams.y, transition.duration, transition.easing);
         q('.' + config.classes.section)
-            .animateBackground(transitionParams.size, transitionParams.x, transitionParams.y, transitionParams.duration, transition.easing, function () {
+            .animateBackground(transitionParams.size, transitionParams.x, transitionParams.y, transition.duration, transition.easing, function () {
                 q('[name="' + config.maps.small + '"]').removeClass(config.classes.hidden);
                 q('.' + config.classes.mapImage).attr('usemap', '#' + config.maps.small);
                 transition.init = false;
                 showText(targetId);
             });
+    },
+
+    updateBackgrounds = function () {
+        if (dom.interactive.hasClass(config.classes.scale)) {
+            var transitionParams = dom.interactive.hasClass(config.classes.mobile) ? transition.mobile : transition.desktop;
+            q('.' + config.classes.base).animateBackground(transitionParams.size, transitionParams.baseX, transitionParams.y, 0, transition.easing);
+            q('.' + config.classes.section).animateBackground(transitionParams.size, transitionParams.x, transitionParams.y, 0, transition.easing);
+        }
     },
 
     showText = function (targetId) {
