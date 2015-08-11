@@ -22,8 +22,14 @@ var HelloYesDollar = (function ($) {
             titlebox: 'HYD__titlebox'
         },
         maps: {
-            large:    'HYD__map--desktop-large',
-            small:    'HYD__map--desktop-small'
+            desktop: {
+                large:    'HYD__map--desktop-large',
+                small:    'HYD__map--desktop-small'
+            },
+            mobile: {
+                large:    'HYD__map--mobile-large',
+                small:    'HYD__map--mobile-small'
+            }
         }
     },
     dom = {},
@@ -184,26 +190,41 @@ var HelloYesDollar = (function ($) {
     resizeBackgrounds = function (targetId) {
         dom.interactive.addClass(config.classes.scale);
         q('.' + config.classes.text).addClass(config.classes.hidden);
-        q('[name="' + config.maps.large + '"]').remove();
+        q('[name="' + config.maps.desktop.large + '"]').remove();
+        q('[name="' + config.maps.mobile.large + '"]').remove();
         transition.init = true;
-        var transitionParams = dom.interactive.hasClass(config.classes.mobile) ? transition.mobile : transition.desktop;
+
+        var transitionParams = dom.interactive.hasClass(config.classes.mobile) ? transition.mobile : transition.desktop,
+            currentMap = getCurrentMap();
 
         q('.' + config.classes.base).animateBackground(transitionParams.size, transitionParams.baseX, transitionParams.y, transition.duration, transition.easing);
         q('.' + config.classes.section)
             .animateBackground(transitionParams.size, transitionParams.x, transitionParams.y, transition.duration, transition.easing, function () {
-                q('[name="' + config.maps.small + '"]').removeClass(config.classes.hidden);
-                q('.' + config.classes.mapImage).attr('usemap', '#' + config.maps.small);
+                q('[name="' + currentMap + '"]').removeClass(config.classes.hidden);
+                q('.' + config.classes.mapImage).attr('usemap', '#' + currentMap);
                 transition.init = false;
                 showText(targetId);
+                updateBackgrounds();
             });
     },
 
     updateBackgrounds = function () {
+        var currentMap = getCurrentMap();
+        q('map').addClass(config.classes.hidden);
+        q('[name="' + currentMap + '"]').removeClass(config.classes.hidden);
+        q('.' + config.classes.mapImage).attr('usemap', '#' + currentMap);
+
         if (dom.interactive.hasClass(config.classes.scale)) {
             var transitionParams = dom.interactive.hasClass(config.classes.mobile) ? transition.mobile : transition.desktop;
             q('.' + config.classes.base).animateBackground(transitionParams.size, transitionParams.baseX, transitionParams.y, 0, transition.easing);
             q('.' + config.classes.section).animateBackground(transitionParams.size, transitionParams.x, transitionParams.y, 0, transition.easing);
         }
+    },
+
+    getCurrentMap = function () {
+        return dom.interactive.hasClass(config.classes.mobile) ?
+            dom.interactive.hasClass(config.classes.scale) ? config.maps.mobile.small : config.maps.mobile.large:
+            dom.interactive.hasClass(config.classes.scale) ? config.maps.desktop.small : config.maps.desktop.large;
     },
 
     showText = function (targetId) {
