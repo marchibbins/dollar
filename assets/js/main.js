@@ -22,8 +22,8 @@ var HelloYesDollar = (function ($) {
             titlebox: 'HYD__titlebox'
         },
         maps: {
-            large:    'HYD__map--large',
-            small:    'HYD__map--small'
+            large:    'HYD__map--desktop-large',
+            small:    'HYD__map--desktop-small'
         }
     },
     dom = {},
