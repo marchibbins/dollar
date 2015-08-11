@@ -13,6 +13,7 @@ var HelloYesDollar = (function ($) {
             layer:    'HYD__layer',
             map:      'HYD__map',
             mapImage: 'HYD__map-image',
+            mobile:   'HYD__mobile',
             scale:    'HYD__scale',
             section:  'HYD__section',
             scroll:   'HYD__scroll',
@@ -41,14 +42,14 @@ var HelloYesDollar = (function ($) {
 
     transition = {
         init: false,
-        large: {
-            size: 1067,
-            baseX: -233,
-            x: -267,
-            y: -400,
-            duration: 1500
+        mobile: {
+            size: 470,
+            baseX: -75,
+            x: -75,
+            y: -225,
+            duration: 1000
         },
-        small: {
+        desktop: {
             size: 780,
             baseX: -90,
             x: -123,
@@ -166,10 +167,11 @@ var HelloYesDollar = (function ($) {
         q('.' + config.classes.text).addClass(config.classes.hidden);
         q('[name="' + config.maps.large + '"]').remove();
         transition.init = true;
+        var transitionParams = dom.interactive.hasClass(config.classes.mobile) ? transition.mobile : transition.desktop;
 
-        q('.' + config.classes.base).animateBackground(transition.small.size, transition.small.baseX, transition.small.y, transition.small.duration, transition.easing);
+        q('.' + config.classes.base).animateBackground(transitionParams.size, transitionParams.baseX, transitionParams.y, transitionParams.duration, transition.easing);
         q('.' + config.classes.section)
-            .animateBackground(transition.small.size, transition.small.x, transition.small.y, transition.small.duration, transition.easing, function () {
+            .animateBackground(transitionParams.size, transitionParams.x, transitionParams.y, transitionParams.duration, transition.easing, function () {
                 q('[name="' + config.maps.small + '"]').removeClass(config.classes.hidden);
                 q('.' + config.classes.mapImage).attr('usemap', '#' + config.maps.small);
                 transition.init = false;
