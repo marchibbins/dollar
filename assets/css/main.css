@@ -52,6 +52,7 @@ body:after {
     position: relative;
     width: 600px;
     height: 800px;
+    margin: 0 auto;
     overflow: hidden;
     font-family: 'Gotham Narrow SSm 3r';
     font-weight: normal;
