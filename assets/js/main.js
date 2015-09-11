@@ -44,7 +44,8 @@ var HelloYesDollar = (function ($) {
         start: 1000,
         wait: 1500,
         count: 0,
-        duration: 0
+        duration: 0,
+        timeout: null
     },
 
     transition = {
@@ -68,7 +69,7 @@ var HelloYesDollar = (function ($) {
     init = function () {
         setup();
         attach();
-        setTimeout(attract, glow.start);
+        glow.timeout = setTimeout(attract, glow.start);
         dom.interactive.removeClass(config.classes.hidden);
     },
 
@@ -81,7 +82,7 @@ var HelloYesDollar = (function ($) {
     },
 
     attract = function () {
-        setTimeout(function () {
+        glow.timeout = setTimeout(function () {
             if (glow.init) {
                 var section = q(dom.sections[glow.count]);
                 section.fadeIn(fadeSpeed, function () {
@@ -101,6 +102,18 @@ var HelloYesDollar = (function ($) {
         }, glow.duration);
     },
 
+    stopGlow = function() {
+        glow.init = false;
+        glow.count = 0;
+        clearInterval(glow.timeout);
+    },
+
+    restartGlow = function() {
+        stopGlow();
+        glow.init = true;
+        glow.timeout = setTimeout(attract, glow.wait/2);
+    },
+
     attach = function () {
         dom.toggles.each(function (i, el) {
             var el = q(el),
@@ -109,7 +122,7 @@ var HelloYesDollar = (function ($) {
                 activeTarget = q('.' + targetId + '--' + config.classes.future);
 
             el.on('mouseenter', function (event) {
-                glow.init = false;
+                stopGlow();
                 if (!transition.init) {
                     var hover = target.attr('active') ? activeTarget : target;
                     if (!currentText(targetId)) {
@@ -125,6 +138,9 @@ var HelloYesDollar = (function ($) {
             })
 
             .on('mouseleave', function (event) {
+                if (!dom.interactive.hasClass(config.classes.scale) && glow.init == false) {
+                    restartGlow();
+                }
                 if (!transition.init) {
                     var hover = target.attr('active') ? activeTarget : target;
                     if (!currentText(targetId)) {
@@ -135,7 +151,7 @@ var HelloYesDollar = (function ($) {
             })
 
             .on('click', function (event) {
-                glow.init = false;
+                stopGlow();
                 event.preventDefault();
                 if (!transition.init) {
                     selectSection(targetId, target, activeTarget);
