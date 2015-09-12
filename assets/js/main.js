@@ -85,9 +85,11 @@ var HelloYesDollar = (function ($) {
         glow.timeout = setTimeout(function () {
             if (glow.init) {
                 var section = q(dom.sections[glow.count]);
-                section.fadeIn(fadeSpeed, function () {
-                    section.fadeOut(fadeSpeed);
-                });
+                if (!section.hasClass(config.classes.active)) {
+                    section.fadeIn(fadeSpeed, function () {
+                        section.fadeOut(fadeSpeed);
+                    });
+                }
 
                 glow.count++;
                 if (glow.count == dom.sections.length) {
@@ -110,8 +112,10 @@ var HelloYesDollar = (function ($) {
 
     restartGlow = function() {
         stopGlow();
-        glow.init = true;
-        glow.timeout = setTimeout(attract, glow.wait/2);
+        if (q('.' + config.classes.active).length < dom.sections.length) {
+            glow.init = true;
+            glow.timeout = setTimeout(attract, glow.wait/dom.sections.length);
+        }
     },
 
     attach = function () {
@@ -122,8 +126,8 @@ var HelloYesDollar = (function ($) {
                 activeTarget = q('.' + targetId + '--' + config.classes.future);
 
             el.on('mouseenter', function (event) {
-                stopGlow();
                 if (!transition.init) {
+                    stopGlow();
                     var hover = target.attr('active') ? activeTarget : target;
                     if (!currentText(targetId)) {
                         hover.stop().fadeIn(fadeSpeed);
@@ -138,10 +142,8 @@ var HelloYesDollar = (function ($) {
             })
 
             .on('mouseleave', function (event) {
-                if (!dom.interactive.hasClass(config.classes.scale) && glow.init == false) {
-                    restartGlow();
-                }
                 if (!transition.init) {
+                    restartGlow();
                     var hover = target.attr('active') ? activeTarget : target;
                     if (!currentText(targetId)) {
                         hover.stop().fadeOut(fadeSpeed);
@@ -192,6 +194,7 @@ var HelloYesDollar = (function ($) {
         } else {
             showText(targetId);
         }
+        restartGlow();
     },
 
     resetToggles = function () {
